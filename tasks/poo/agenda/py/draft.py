@@ -1,4 +1,4 @@
-class Fone:
+class Phone:
     def __init__(self,id:str, number:str):
         self.__id = id
         self.__number = number
@@ -16,50 +16,66 @@ class Fone:
        return f"{self.__id}:{self.__number}"
     
 class Contact:
-    def __init__(self, name: str):
+   def __init__(self, name: str):
        self.__name: str = name
        self.__favorited: bool = False
        self.__phones: list[Phone] = []
+   def addPhone(self, phone : Phone):
+        self.__phones.append(phone)
+   def rmPhone(self,self, index: int):
+      if 0 <= index < len(self.__phones):
+         self.__phones.pop(index)
 
-    def addFone(self,id, number):
-        f = Fone (id, number)
+   def toggleFavorited(self):
+      self.__favorited = not self.__favorited
 
-    def __str__(self):
-        result = []
-        for contact in self.getContacts():
+   def getPhones(self):
+      return self.__phones
+   
+   def getName(self):
+      return self.__name
+
+   def setName(self):
+      self.__name = name
+
+   def __str__(self):
+      result = []
+         for contact in self.getContacts():
             mark = "@" if contacts.isFavorite() else "- "
             result.append(mark + str(contact))
-        return "\n".join(result)
-
+         return "\n".join(result)
 def main():
-    agenda = Agenda()
-     while True:
-        cmd = input()
-        args = cmd.split()  
-        print("$" + cmd)
-        if args[0] == "add":
-           name = args[1]
-           phones = []
-           for i in range (2,len(args)):
-              phone = buildPhoneFromString(args(i))
-              phones.append(phone)
-
-            agenda.addContact(name, phones)
+agenda = Agenda()
+   while True:
+      cmd = input()
+      args = cmd.split()  
+      print("$" + cmd)
+      if args[0] == "add":
+         name = args[1]
+         phones = []
+      for i in range (2,len(args)):
+         phone = buildPhoneFromString(args[i])
+         phones.append(phone)
+         agenda.addContact(name, phones)
            
-        elif args[0] == "show":
-            print(agenda)
-        elif args[0] == "end":
-           break
-        elif args[0] == "rmFone":
-           name = args[1]
-           index = int(args[2])
-           contact = agenda.getContact(name)
-           if contact:
-              contact.rmPhone(index)
-              agenda.rmContact(name)
-              agenda.addContact(contact.getName(), contact.getPhones())
+      elif args[0] == "show":
+         print(agenda)
+      
+      elif args[0] == "end":
+         break
 
-        elif args[0] == "rm"
+      elif args[0] == "rmFone":
+         name = args[1]
+         index = int(args[2])
+         contact = agenda.getContact(name)
+      if contact:
+         contact.rmPhone(index)
+         agenda.rmContact(name)
+         agenda.addContact(contact.getName(), contact.getPhones())
+
+      elif args[0] == "rm":
+         name = args[1]
+         agenda.rmContact(name)
 
 
 main()
